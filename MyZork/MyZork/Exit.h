@@ -1,6 +1,8 @@
 #ifndef __Exit__
 #define __Exit__
 
+#include "Room.h"
+
 class Exit{
 public:
 	char name[30];
@@ -10,50 +12,67 @@ public:
 };
 
 enum Directions{
-	OBSERVATORYdirectionN,
-	OBSERVATORYdirectionW,
-	OBSERVATORYdirectionE,
-	OBSERVATORYdirectionS,
+
+	OBSERVATORY_direction_N,
+	OBSERVATORY_direction_W,
+	OBSERVATORY_direction_E,
+	OBSERVATORY_direction_S,
+
 	// ----------------
-	NORTHTEMPLEdirectionN,
-	NORTHTEMPLEdirectionW,
-	NORTHTEMPLEdirectionE,
-	NORTHTEMPLEdirectionS,
+
+	NORTHTEMPLE_direction_N,
+	NORTHTEMPLE_direction_W,
+	NORTHTEMPLE_direction_E,
+	NORTHTEMPLE_direction_S,
+
 	// ----------------
-	HEADMASTERSROOMdirectionN,
-	HEADMASTERSROOMdirectionW,
-	HEADMASTERSROOMdirectionE,
-	HEADMASTERSROOMdirectionS,
+
+	HEADMASTERSROOM_direction_N,
+	HEADMASTERSROOM_direction_W,
+	HEADMASTERSROOM_direction_E,
+	HEADMASTERSROOM_direction_S,
+
 	// ----------------
-	WESTTEMPLEdirectionN,
-	WESTTEMPLEdirectionW,
-	WESTTEMPLEdirectionE,
-	WESTTEMPLEdirectionS,
+
+	WESTTEMPLE_direction_N,
+	WESTTEMPLE_direction_W,
+	WESTTEMPLE_direction_E,
+	WESTTEMPLE_direction_S,
+
 	// ----------------
-	FOUNTAINROOMdirectionN,
-	FOUNTAINROOMdirectionW,
-	FOUNTAINROOMdirectionE,
-	FOUNTAINROOMdirectionS,
+
+	FOUNTAINROOM_direction_N,
+	FOUNTAINROOM_direction_W,
+	FOUNTAINROOM_direction_E,
+	FOUNTAINROOM_direction_S,
+
 	// ----------------
-	EASTTEMPLEdirectionN,
-	EASTTEMPLEdirectionW,
-	EASTTEMPLEdirectionE,
-	EASTTEMPLEdirectionS,
+
+	EASTTEMPLE_direction_N,
+	EASTTEMPLE_direction_W,
+	EASTTEMPLE_direction_E,
+	EASTTEMPLE_direction_S,
+
 	// ----------------
-	GARDENdirectionN,
-	GARDENdirectionW,
-	GARDENdirectionE,
-	GARDENdirectionS,
+
+	GARDEN_direction_N,
+	GARDEN_direction_W,
+	GARDEN_direction_E,
+	GARDEN_direction_S,
+
 	// ----------------
-	SOUTHTEMPLEdirectionN,
-	SOUTHTEMPLEdirectionW,
-	SOUTHTEMPLEdirectionE,
-	SOUTHTEMPLEdirectionS,
+
+	SOUTHTEMPLE_direction_N,
+	SOUTHTEMPLE_direction_W,
+	SOUTHTEMPLE_direction_E,
+	SOUTHTEMPLE_direction_S,
+
 	// ----------------
-	LIBRARYdirectionN,
-	LIBRARYdirectionW,
-	LIBRARYdirectionE,
-	LIBRARYdirectionS
+
+	LIBRARY_direction_N,
+	LIBRARY_direction_W,
+	LIBRARY_direction_E,
+	LIBRARY_direction_S
+
 };
-// ----------------
 #endif //__Exit__

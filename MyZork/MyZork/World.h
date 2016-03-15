@@ -7,13 +7,20 @@
 #include "Exit.h"
 
 class World{
+
 	Room* rooms = nullptr;
 	Exit* exits = nullptr;
 	Player* player = nullptr;
+
 public:
+
 	World();
 	~World();
+
 public:
+
 	void CreateWorld();
+
 };
+
 #endif //__World__
