@@ -184,7 +184,7 @@ void World::CreateWorld() const{
 
 }
 
-void World::Move(int &position, char option_move[])
+void World::Move(int &position, char option_move[]) const
 {
 	int i = 0, j = 0;
 
@@ -361,7 +361,7 @@ void World::Move(int &position, char option_move[])
 	}
 }
 
-void World::Look(int &position, char direction[])
+void World::Look(int &position, char direction[]) const
 {
 
 	int i;
@@ -427,7 +427,7 @@ void World::Look(int &position, char direction[])
 
 }
 
-void World::Open(int &position, char direction[])
+void World::Open(int &position, char direction[]) const
 {
 
 	int i, j;
@@ -561,7 +561,7 @@ void World::Open(int &position, char direction[])
 	}
 }
 
-void World::Close(int &position, char direction[])
+void World::Close(int &position, char direction[]) const
 {
 
 	int i, j;
@@ -693,7 +693,7 @@ void World::Close(int &position, char direction[])
 	}
 }
 
-void World::Help()
+void World::Help() const
 {
 
 	printf("\nINSTRUCTIONS:\n");

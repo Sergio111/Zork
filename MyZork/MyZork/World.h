@@ -22,11 +22,11 @@ public:
 public:
 
 	void CreateWorld() const;
-	void Look(int&, char[]);
-	void Open(int&, char[]);
-	void Close(int&, char[]);
-	void Move(int&, char[]);
-	void Help();
+	void Look(int&, char[]) const;
+	void Open(int&, char[]) const;
+	void Close(int&, char[]) const;
+	void Move(int&, char[]) const;
+	void Help() const;
 
 };
 
