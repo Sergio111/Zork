@@ -3,8 +3,6 @@
 
 #include "room.h"
 
-enum dir { North, West, East, South };
-
 class Exit{
 
 public:
@@ -15,7 +13,11 @@ public:
 	Room* destination;
 	bool open = false;
 	bool door = false;
-	dir direction;
+
+public:
+
+	Exit();
+	~Exit();
 
 };
 

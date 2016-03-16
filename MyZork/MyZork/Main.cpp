@@ -29,14 +29,16 @@ int main()
 		printf("\n- ");
 		gets_s(option, 20);
 
-		if (strcmp(option, "go") == 0 || strcmp(option, "n") == 0 || strcmp(option, "s") == 0 || strcmp(option, "e") == 0 || strcmp(option, "w") == 0 || strcmp(option, "u") == 0 || strcmp(option, "d") == 0
-			|| strcmp(option, "north") == 0 || strcmp(option, "south") == 0 || strcmp(option, "east") == 0 || strcmp(option, "west") == 0 || strcmp(option, "up") == 0 || strcmp(option, "down") == 0
-			|| strcmp(option, "go north") == 0 || strcmp(option, "go south") == 0 || strcmp(option, "go east") == 0 || strcmp(option, "go west") == 0 || strcmp(option, "go up") == 0 || strcmp(option, "go down") == 0)
+		if (strcmp(option, "go") == 0 || strcmp(option, "n") == 0 || strcmp(option, "w") == 0 || strcmp(option, "e") == 0 || strcmp(option, "s") == 0 ||
+			strcmp(option, "north") == 0 || strcmp(option, "west") == 0 || strcmp(option, "east") == 0 || strcmp(option, "south") == 0 ||
+			strcmp(option, "go north") == 0 || strcmp(option, "go west") == 0 || strcmp(option, "go east") == 0 || strcmp(option, "go south") == 0 ||
+			strcmp(option, "go n") == 0 || strcmp(option, "go w") == 0 || strcmp(option, "go e") == 0 || strcmp(option, "go s") == 0)
 		{
 			world.Movement(position, option);
 			printf("%s\n", world.player->player_position->description);
 		}
-		else if (strcmp(option, "look") == 0 || strcmp(option, "look north") == 0 || strcmp(option, "look south") == 0 || strcmp(option, "look east") == 0 || strcmp(option, "look west") == 0 || strcmp(option, "look up") == 0 || strcmp(option, "look down") == 0)
+		else if (strcmp(option, "look") == 0 || strcmp(option, "look n") == 0 || strcmp(option, "look w") == 0 || strcmp(option, "look e") == 0 || strcmp(option, "look s") == 0 ||
+			strcmp(option, "look north") == 0 || strcmp(option, "look west") == 0 || strcmp(option, "look east") == 0 || strcmp(option, "look south") == 0)
 		{
 			world.Look(position, option);
 		}
