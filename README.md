@@ -1,38 +1,35 @@
-# Project Name
+Magic Academy Adventure
 
-TODO: Write a project description
+Welcome to Magic Academy Adventure, this game is based on the game called Zork, a written adventure.
 
-## Installation
+Installation
 
-TODO: Describe the installation process
+Download the release zip, unzip it and execute the .exe file.
 
-## Usage
+Lore
 
-TODO: Write usage instructions
+You are a student in a magic academy, you have a giant need of power, so your objective is to be the most powerfull one.
 
-## Contributing
+Instructions, controls and how to play
 
-1. Fork it!
+You can move using:
 
-2. Create your feature branch: `git checkout -b my-new-
-feature`
+n/s/e/w
 
-3. Commit your changes: `git commit -am 'Add some 
+north/east/south/west
 
-feature'`
+go n/go e/go s/go w
 
-4. Push to the branch: `git push origin my-new-feature`
+go north/go east/go south/go west
 
-5. Submit a pull request :D
+Also you can use the commands:
 
-## History
+look->to see the description of the room where you are
 
-TODO: Write history
+look+north/n/east/e/south/s/west/w->to see the description of the path
 
-## Credits
+open/close+north/n/east/e/south/s/west/w->to open/close doors
 
-TODO: Write credits
+help->to print the help menu with the commands.
 
-## License
-
-TODO: Write license
+quit->to quit the game
