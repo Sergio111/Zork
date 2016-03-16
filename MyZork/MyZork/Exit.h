@@ -1,14 +1,22 @@
 #ifndef __Exit__
 #define __Exit__
 
-#include "Room.h"
+#include "room.h"
+
+enum dir { North, West, East, South };
 
 class Exit{
+
 public:
-	char name[30];
-	char description[200];
+
+	char name[40];
+	char description[500];
 	Room* origin;
 	Room* destination;
+	bool open = false;
+	bool door = false;
+	dir direction;
+
 };
 
 enum Directions{
@@ -75,4 +83,5 @@ enum Directions{
 	LIBRARY_direction_S
 
 };
-#endif //__Exit__
+
+#endif

@@ -9,6 +9,7 @@ World::World(){
 	player = new Player;
 
 }
+
 World::~World(){
 
 	delete[] rooms;
@@ -17,7 +18,7 @@ World::~World(){
 
 }
 
-void World::CreateWorld(){
+void World::CreateWorld() const{
 
 	// ---------------------------------------------------------------------------------------------------------------
 	strcpy_s(rooms[OBSERVATORY].name, "The Observatory");
@@ -166,3 +167,192 @@ void World::CreateWorld(){
 	// ---------------------------------------------------------------------------------------------------------------
 
 }
+
+void World::Movement(int &position, char option_move[])
+{
+	int i = 0, j = 0;
+
+	player->player_position = &rooms[position];
+
+	if (strcmp(option_move, "go") == 0)
+	{
+		printf("Which direction do you want to go? ");
+		gets_s(option_move, 20);
+	}
+
+	if (strcmp(option_move, "n") == 0 || strcmp(option_move, "north") == 0 || strcmp(option_move, "go north") == 0)
+	{
+		for (i = 0; i < 36; i++)
+		{
+			if (i % 4 == 0)
+			{
+				if (exits[i].origin == player->player_position)
+				{
+					for (j = 0; j < 9; j++)
+					{
+						if (exits[i].destination == &rooms[j])
+						{
+							position = j;
+							player->player_position = exits[i].destination;
+							printf("\nNow you are in %s.\n", player->player_position);
+							return;
+						}
+					}
+				}
+			}
+		}
+		printf("\nIt's impossible to move there.\n");
+	}
+
+	else if (strcmp(option_move, "s") == 0 || strcmp(option_move, "south") == 0 || strcmp(option_move, "go south") == 0)
+	{
+		for (i = 0; i < 36; i++)
+		{
+			if (i % 4 == 3)
+			{
+				if (exits[i].origin == player->player_position)
+				{
+					for (j = 0; j < 9; j++)
+					{
+						if (exits[i].destination == &rooms[j])
+						{
+							position = j;
+							player->player_position = exits[i].destination;
+							printf("\nNow you are in %s.\n", player->player_position);
+							return;
+						}
+					}
+				}
+			}
+		}
+		printf("\nIt's impossible to move there.\n");
+	}
+
+	else if (strcmp(option_move, "e") == 0 || strcmp(option_move, "east") == 0 || strcmp(option_move, "go east") == 0)
+	{
+		for (i = 0; i < 36; i++)
+		{
+			if (i % 4 == 2)
+			{
+				if (exits[i].origin == player->player_position)
+				{
+					for (j = 0; j < 9; j++)
+					{
+						if (exits[i].destination == &rooms[j])
+						{
+							position = j;
+							player->player_position = exits[i].destination;
+							printf("\nNow you are in %s.\n", player->player_position);
+							return;
+						}
+					}
+				}
+			}
+		}
+		printf("\nIt's impossible to move there.\n");
+	}
+
+	else if (strcmp(option_move, "w") == 0 || strcmp(option_move, "west") == 0 || strcmp(option_move, "go west") == 0)
+	{
+		for (i = 0; i < 36; i++)
+		{
+			if (i % 4 == 1)
+			{
+				if (exits[i].origin == player->player_position)
+				{
+					for (j = 0; j < 9; j++)
+					{
+						if (exits[i].destination == &rooms[j])
+						{
+							position = j;
+							player->player_position = exits[i].destination;
+							printf("\nNow you are in %s.\n", player->player_position);
+							return;
+						}
+					}
+				}
+			}
+		}
+		printf("\nIt's impossible to move there.\n");
+	}
+}
+
+void World::Look(int &pos, char direction[])
+{
+	int i, j;
+	player->player_position = (rooms + pos);
+	if (strcmp(direction, "look") == 0)
+	{
+		printf("\n%s\n%s", (rooms + pos)->name, (rooms + pos)->description);
+		printf("\n\nWhich direction do you want to look? ");
+		gets_s(direction, 20);
+	}
+
+	if (strcmp(direction, "look north") == 0 || strcmp(direction, "north") == 0)
+	{
+		for (i = 0; i < 36; i++)
+		{
+			if ((exits + i)->origin == player->player_position && (exits + i)->direction == North)
+			{
+				printf("\n%s%s", (exits + i)->name, (exits + i)->description);
+				return;
+			}
+		}
+		printf("\nThere's nothing to look here.\n");
+	}
+
+	else if (strcmp(direction, "look south") == 0 || strcmp(direction, "south") == 0)
+	{
+		for (i = 0; i < 36; i++)
+		{
+			if ((exits + i)->origin == player->player_position && (exits + i)->direction == South)
+			{
+				printf("\n%s%s", (exits + i)->name, (exits + i)->description);
+				return;
+			}
+		}
+		printf("\nThere's nothing to look here.\n");
+	}
+
+	else if (strcmp(direction, "look east") == 0 || strcmp(direction, "east") == 0)
+	{
+		for (i = 0; i < 36; i++)
+		{
+			if ((exits + i)->origin == player->player_position && (exits + i)->direction == East)
+			{
+				printf("\n%s%s", (exits + i)->name, (exits + i)->description);
+				return;
+			}
+		}
+		printf("\nThere's nothing to look here.\n");
+	}
+
+	else if (strcmp(direction, "look west") == 0 || strcmp(direction, "west") == 0)
+	{
+		for (i = 0; i < 36; i++)
+		{
+			if ((exits + i)->origin == player->player_position && (exits + i)->direction == West)
+			{
+				printf("\n%s%s", (exits + i)->name, (exits + i)->description);
+				return;
+			}
+		}
+		printf("\nThere's nothing to look here.\n");
+	}
+
+	else
+	{
+		printf("\nInvalid command.\n");
+	}
+
+}
+
+void World::Help()
+{
+
+	printf("\nINSTRUCTIONS:\n");
+	printf("The commands that you can enter are: go/look/open/close/help/quit.\n");
+	printf("To specify the direction you want: north/weast/east/south/n/w/e/s\n");
+
+}
+

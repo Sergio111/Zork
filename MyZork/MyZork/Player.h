@@ -3,12 +3,18 @@
 
 #include "Room.h"
 
-class Player{
+class Player
+{
 
 public:
-	
-	Room* player_position;
+
+	Room* player_position = nullptr;
+
+public:
+
+	Player();
+	~Player();
 
 };
 
-#endif //__Player__
+#endif

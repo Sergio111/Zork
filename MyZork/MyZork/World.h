@@ -8,6 +8,7 @@
 
 class World{
 
+public:
 	Room* rooms = nullptr;
 	Exit* exits = nullptr;
 	Player* player = nullptr;
@@ -19,8 +20,11 @@ public:
 
 public:
 
-	void CreateWorld();
+	void CreateWorld() const;
+	void Look(int&, char[]);
+	void Movement(int&, char[]);
+	void Help();
 
 };
 
-#endif //__World__
+#endif
