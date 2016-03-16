@@ -11,7 +11,7 @@ public:
 	char description[500];
 	Room* origin;
 	Room* destination;
-	bool open = false;
+	bool close = false;
 	bool door = false;
 
 public:

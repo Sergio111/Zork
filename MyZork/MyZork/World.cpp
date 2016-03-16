@@ -49,9 +49,13 @@ void World::CreateWorld() const{
 	strcpy_s(exits[NORTHTEMPLE_direction_E].description, "It's a long and dark corridor, a smell of death cames from it.");
 	exits[NORTHTEMPLE_direction_E].origin = &rooms[NORTHTEMPLE];
 	exits[NORTHTEMPLE_direction_E].destination = &rooms[HEADMASTERSROOM];
+	exits[NORTHTEMPLE_direction_E].door = true;
+	exits[NORTHTEMPLE_direction_E].close = true;
 	strcpy_s(exits[NORTHTEMPLE_direction_S].description, "It's a long corridor full of vegetation.");
 	exits[NORTHTEMPLE_direction_S].origin = &rooms[NORTHTEMPLE];
 	exits[NORTHTEMPLE_direction_S].destination = &rooms[FOUNTAINROOM];
+	exits[NORTHTEMPLE_direction_S].door = true;
+	exits[NORTHTEMPLE_direction_S].close = true;
 	// ---------------------------------------------------------------------------------------------------------------
 	strcpy_s(rooms[HEADMASTERSROOM].name, "The Headmaster's Room");
 	strcpy_s(rooms[HEADMASTERSROOM].description, "This is The Headmaster's Room, it's a big room and the angry Headmaster is staring at you! The only entrance is on the west.");
@@ -62,6 +66,8 @@ void World::CreateWorld() const{
 	strcpy_s(exits[HEADMASTERSROOM_direction_W].description, "It's a long and dark corridor, a smell of death cames from it.");
 	exits[HEADMASTERSROOM_direction_W].origin = &rooms[HEADMASTERSROOM];
 	exits[HEADMASTERSROOM_direction_W].destination = &rooms[NORTHTEMPLE];
+	exits[HEADMASTERSROOM_direction_W].door = true;
+	exits[HEADMASTERSROOM_direction_W].close = true;
 	strcpy_s(exits[HEADMASTERSROOM_direction_E].description, "There's a wall.");
 	exits[HEADMASTERSROOM_direction_E].origin = &rooms[HEADMASTERSROOM];
 	exits[HEADMASTERSROOM_direction_E].destination = &rooms[HEADMASTERSROOM];
@@ -91,6 +97,8 @@ void World::CreateWorld() const{
 	strcpy_s(exits[FOUNTAINROOM_direction_N].description, "It's a long corridor full of vegetation.");
 	exits[FOUNTAINROOM_direction_N].origin = &rooms[FOUNTAINROOM];
 	exits[FOUNTAINROOM_direction_N].destination = &rooms[NORTHTEMPLE];
+	exits[FOUNTAINROOM_direction_N].door = true;
+	exits[FOUNTAINROOM_direction_N].close = true;
 	strcpy_s(exits[FOUNTAINROOM_direction_W].description, "It's a long dusty corridor.");
 	exits[FOUNTAINROOM_direction_W].origin = &rooms[FOUNTAINROOM];
 	exits[FOUNTAINROOM_direction_W].destination = &rooms[WESTTEMPLE];
@@ -116,6 +124,8 @@ void World::CreateWorld() const{
 	strcpy_s(exits[EASTTEMPLE_direction_S].description, "It's a dark corridor with a little illumination from some torches.");
 	exits[EASTTEMPLE_direction_S].origin = &rooms[EASTTEMPLE];
 	exits[EASTTEMPLE_direction_S].destination = &rooms[LIBRARY];
+	exits[EASTTEMPLE_direction_S].door = true;
+	exits[EASTTEMPLE_direction_S].close = true;
 	// ---------------------------------------------------------------------------------------------------------------
 	strcpy_s(rooms[GARDEN].name, "The Garden");
 	strcpy_s(rooms[GARDEN].description, "This room is an open aired room. There's a few vegetation and some animals, the teacher is in the middle of the garden, maybe he has something to say... There are entrances in the north, and in the east.");
@@ -145,6 +155,8 @@ void World::CreateWorld() const{
 	strcpy_s(exits[SOUTHTEMPLE_direction_E].description, "It's a long dark corridor with a little illumination from some torches.");
 	exits[SOUTHTEMPLE_direction_E].origin = &rooms[SOUTHTEMPLE];
 	exits[SOUTHTEMPLE_direction_E].destination = &rooms[LIBRARY];
+	exits[SOUTHTEMPLE_direction_E].door = true;
+	exits[SOUTHTEMPLE_direction_E].close = true;
 	strcpy_s(exits[SOUTHTEMPLE_direction_S].description, "There's a wall.");
 	exits[SOUTHTEMPLE_direction_S].origin = &rooms[SOUTHTEMPLE];
 	exits[SOUTHTEMPLE_direction_S].destination = &rooms[SOUTHTEMPLE];
@@ -155,9 +167,13 @@ void World::CreateWorld() const{
 	strcpy_s(exits[LIBRARY_direction_N].description, "It's a dark corridor with a little illumination from some torches.");
 	exits[LIBRARY_direction_N].origin = &rooms[LIBRARY];
 	exits[LIBRARY_direction_N].destination = &rooms[EASTTEMPLE];
+	exits[LIBRARY_direction_N].door = true;
+	exits[LIBRARY_direction_N].close = true;
 	strcpy_s(exits[LIBRARY_direction_W].description, "It's a long dark corridor with a little illumination from some torches.");
 	exits[LIBRARY_direction_W].origin = &rooms[LIBRARY];
 	exits[LIBRARY_direction_W].destination = &rooms[SOUTHTEMPLE];
+	exits[LIBRARY_direction_W].door = true;
+	exits[LIBRARY_direction_W].close = true;
 	strcpy_s(exits[LIBRARY_direction_E].description, "There's a wall.");
 	exits[LIBRARY_direction_E].origin = &rooms[LIBRARY];
 	exits[LIBRARY_direction_E].destination = &rooms[LIBRARY];
@@ -168,7 +184,7 @@ void World::CreateWorld() const{
 
 }
 
-void World::Movement(int &position, char option_move[])
+void World::Move(int &position, char option_move[])
 {
 	int i = 0, j = 0;
 
@@ -192,16 +208,33 @@ void World::Movement(int &position, char option_move[])
 					{
 						if (exits[i].destination == &rooms[j])
 						{
-							position = j;
-							player->player_position = exits[i].destination;
-							printf("\nNow you are in %s.\n", player->player_position);
-							return;
+							if (exits[i].door == true && exits[i].close == true)
+							{
+								printf("\nThere's a door and it's locked.\n\n");
+								return;
+							}
+
+							else if (exits[i].origin == exits[i].destination)
+							
+							{
+								printf("\nThere's a wall here.\n\n");
+								return;
+							}
+
+							else
+
+							{
+								position = j;
+								player->player_position = exits[i].destination;
+								printf("\nNow you are in %s.\n", player->player_position);
+								return;
+							}
 						}
 					}
 				}
 			}
 		}
-		printf("\nIt's impossible to move there.\n");
+		printf("\nThere's a wall.\n");
 	}
 
 	else if (strcmp(option_move, "w") == 0 || strcmp(option_move, "west") == 0 || strcmp(option_move, "go west") == 0 || strcmp(option_move, "go w") == 0)
@@ -216,16 +249,33 @@ void World::Movement(int &position, char option_move[])
 					{
 						if (exits[i].destination == &rooms[j])
 						{
-							position = j;
-							player->player_position = exits[i].destination;
-							printf("\nNow you are in %s.\n", player->player_position);
-							return;
+							if (exits[i].door == true && exits[i].close == true)
+							{
+								printf("\nThere's a door and it's locked.\n\n");
+								return;
+							}
+
+							else if (exits[i].origin == exits[i].destination)
+
+							{
+								printf("\nThere's a wall here.\n\n");
+								return;
+							}
+
+							else
+
+							{
+								position = j;
+								player->player_position = exits[i].destination;
+								printf("\nNow you are in %s.\n", player->player_position);
+								return;
+							}
 						}
 					}
 				}
 			}
 		}
-		printf("\nIt's impossible to move there.\n");
+		printf("\nThere's a wall.\n");
 	}
 
 	else if (strcmp(option_move, "e") == 0 || strcmp(option_move, "east") == 0 || strcmp(option_move, "go east") == 0 || strcmp(option_move, "go e") == 0)
@@ -240,16 +290,33 @@ void World::Movement(int &position, char option_move[])
 					{
 						if (exits[i].destination == &rooms[j])
 						{
-							position = j;
-							player->player_position = exits[i].destination;
-							printf("\nNow you are in %s.\n", player->player_position);
-							return;
+							if (exits[i].door == true && exits[i].close == true)
+							{
+								printf("\nThere's a door and it's locked.\n\n");
+								return;
+							}
+
+							else if (exits[i].origin == exits[i].destination)
+
+							{
+								printf("\nThere's a wall here.\n\n");
+								return;
+							}
+
+							else
+
+							{
+								position = j;
+								player->player_position = exits[i].destination;
+								printf("\nNow you are in %s.\n", player->player_position);
+								return;
+							}
 						}
 					}
 				}
 			}
 		}
-		printf("\nIt's impossible to move there.\n");
+		printf("\nThere's a wall.\n");
 	}
 
 	else if (strcmp(option_move, "s") == 0 || strcmp(option_move, "south") == 0 || strcmp(option_move, "go south") == 0 || strcmp(option_move, "go s") == 0)
@@ -264,16 +331,33 @@ void World::Movement(int &position, char option_move[])
 					{
 						if (exits[i].destination == &rooms[j])
 						{
-							position = j;
-							player->player_position = exits[i].destination;
-							printf("\nNow you are in %s.\n", player->player_position);
-							return;
+							if (exits[i].door == true && exits[i].close == true)
+							{
+								printf("\nThere's a door and it's locked.\n\n");
+								return;
+							}
+
+							else if (exits[i].origin == exits[i].destination)
+
+							{
+								printf("\nThere's a wall here.\n\n");
+								return;
+							}
+
+							else
+
+							{
+								position = j;
+								player->player_position = exits[i].destination;
+								printf("\nNow you are in %s.\n", player->player_position);
+								return;
+							}
 						}
 					}
 				}
 			}
 		}
-		printf("\nIt's impossible to move there.\n");
+		printf("\nThere's a wall.\n");
 	}
 }
 
@@ -343,11 +427,278 @@ void World::Look(int &position, char direction[])
 
 }
 
+void World::Open(int &position, char direction[])
+{
+
+	int i, j;
+
+	if (strcmp(direction, "open north") == 0 || strcmp(direction, "open n") == 0)
+	{
+		for (i = 0; i < 36; i++){
+			if (strcmp(exits[i].origin->name, player->player_position->name) == 0){
+				if (i % 4 == 0){
+					if (exits[i].door == true){
+						if (exits[i].close == true){
+							exits[i].close = false;
+							for (j = 0; j < 36; j++){
+								if (j % 4 == 3){
+									if (exits[j].destination->name == exits[i].origin->name){
+										exits[j].close = false;
+										printf("The door is opened.\n");
+										return;
+									}
+								}
+							}
+						}
+						else{
+							printf("The door was already opened.\n");
+							break;
+						}
+					}
+					else{
+						printf("There is not a door here.\n");
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	else if (strcmp(direction, "open west") == 0 || strcmp(direction, "open w") == 0)
+	{
+		for (i = 0; i < 36; i++){
+			if (strcmp(exits[i].origin->name, player->player_position->name) == 0){
+				if (i % 4 == 1){
+					if (exits[i].door == true){
+						if (exits[i].close == true){
+							exits[i].close = false;
+							for (j = 0; j < 36; j++){
+								if (j % 4 == 2){
+									if (exits[j].destination->name == exits[i].origin->name){
+										exits[j].close = false;
+										printf("The door is opened.\n");
+										return;
+									}
+								}
+							}
+						}
+						else{
+							printf("The door was already opened.\n");
+							break;
+						}
+					}
+					else{
+						printf("There is not a door here.\n");
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	else if (strcmp(direction, "open east") == 0 || strcmp(direction, "open e") == 0)
+	{
+		for (i = 0; i < 36; i++){
+			if (strcmp(exits[i].origin->name, player->player_position->name) == 0){
+				if (i % 4 == 2){
+					if (exits[i].door == true){
+						if (exits[i].close == true){
+							exits[i].close = false;
+							for (j = 0; j < 36; j++){
+								if (j % 4 == 1){
+									if (exits[j].destination->name == exits[i].origin->name){
+										exits[j].close = false;
+										printf("The door is opened.\n");
+										return;
+									}
+								}
+							}
+						}
+						else{
+							printf("The door was already opened.\n");
+							break;
+						}
+					}
+					else{
+						printf("There is not a door here.\n");
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	else if (strcmp(direction, "open south") == 0 || strcmp(direction, "open s") == 0)
+	{
+		for (i = 0; i < 36; i++){
+			if (strcmp(exits[i].origin->name, player->player_position->name) == 0){
+				if (i % 4 == 3){
+					if (exits[i].door == true){
+						if (exits[i].close == true){
+							exits[i].close = false;
+							for (j = 0; j < 36; j++){
+								if (j % 4 == 0){
+									if (exits[j].destination->name == exits[i].origin->name){
+										exits[j].close = false;
+										printf("The door is opened.\n");
+										return;
+									}
+								}
+							}
+						}
+						else{
+							printf("The door was already opened.\n");
+							break;
+						}
+					}
+					else{
+						printf("There is not a door here.\n");
+						break;
+					}
+				}
+			}
+		}
+	}
+}
+
+void World::Close(int &position, char direction[])
+{
+
+	int i, j;
+
+	if (strcmp(direction, "close north") == 0 || strcmp(direction, "close n") == 0)
+	{
+		for (i = 0; i < 36; i++){
+			if (strcmp(exits[i].origin->name, player->player_position->name) == 0){
+				if (i % 4 == 0){
+					if (exits[i].door == true){
+						if (exits[i].close == false){
+							exits[i].close = true;
+							for (j = 0; j < 36; j++){
+								if (j % 4 == 3){
+									if (exits[j].destination->name == exits[i].origin->name){
+										exits[j].close = true;
+										printf("The door is closed.\n");
+										return;
+									}
+								}
+							}
+						}
+						else{
+							printf("The door was already closed.\n");
+							break;
+						}
+					}
+					else{
+						printf("There is not a door here.\n");
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	else if (strcmp(direction, "close west") == 0 || strcmp(direction, "close w") == 0)
+	{
+		for (i = 0; i < 36; i++){
+			if (strcmp(exits[i].origin->name, player->player_position->name) == 0){
+				if (i % 4 == 1){
+					if (exits[i].door == true){
+						if (exits[i].close == false){
+							exits[i].close = true;
+							for (j = 0; j < 36; j++){
+								if (j % 4 == 2){
+									if (exits[j].destination->name == exits[i].origin->name){
+										exits[j].close = true;
+										printf("The door is closed.\n");
+										return;
+									}
+								}
+							}
+						}
+						else{
+							printf("The door was already closed.\n");
+							break;
+						}
+					}
+					else{
+						printf("There is not a door here.\n");
+						break;
+					}
+				}
+			}
+		}
+	}
+	else if (strcmp(direction, "close east") == 0 || strcmp(direction, "close e") == 0)
+	{
+		for (i = 0; i < 36; i++){
+			if (strcmp(exits[i].origin->name, player->player_position->name) == 0){
+				if (i % 4 == 2){
+					if (exits[i].door == true){
+						if (exits[i].close == false){
+							exits[i].close = true;
+							for (j = 0; j < 36; j++){
+								if (j % 4 == 1){
+									if (exits[j].destination->name == exits[i].origin->name){
+										exits[j].close = true;
+										printf("The door is closed.\n");
+										return;
+									}
+								}
+							}
+						}
+						else{
+							printf("The door was already closed.\n");
+							break;
+						}
+					}
+					else{
+						printf("There is not a door here.\n");
+						break;
+					}
+				}
+			}
+		}
+	}
+	else if (strcmp(direction, "close south") == 0 || strcmp(direction, "close s") == 0)
+	{
+		for (i = 0; i < 36; i++){
+			if (strcmp(exits[i].origin->name, player->player_position->name) == 0){
+				if (i % 4 == 3){
+					if (exits[i].door == true){
+						if (exits[i].close == false){
+							exits[i].close = true;
+							for (j = 0; j < 36; j++){
+								if (j % 4 == 0){
+									if (exits[j].destination->name == exits[i].origin->name){
+										exits[j].close = true;
+										printf("The door is closed.\n");
+										return;
+									}
+								}
+							}
+						}
+						else{
+							printf("The door was already closed.\n");
+							break;
+						}
+					}
+					else{
+						printf("There is not a door here.\n");
+						break;
+					}
+				}
+			}
+		}
+	}
+}
+
 void World::Help()
 {
 
 	printf("\nINSTRUCTIONS:\n");
-	printf("The commands that you can enter are: go/look/open/close/help/quit.\n");
+	printf("The commands that you can use are: go/look/open/close/help/quit.\n");
 	printf("To specify the direction you want: north/weast/east/south/n/w/e/s\n");
+	printf("Use look to know where you are, use look + direction to look a corridor\n");
 
 }

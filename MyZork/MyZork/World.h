@@ -23,7 +23,9 @@ public:
 
 	void CreateWorld() const;
 	void Look(int&, char[]);
-	void Movement(int&, char[]);
+	void Open(int&, char[]);
+	void Close(int&, char[]);
+	void Move(int&, char[]);
 	void Help();
 
 };
