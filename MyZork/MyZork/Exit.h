@@ -24,7 +24,7 @@ public:
 enum Directions{
 
 	OBSERVATORY_direction_N,
-	OBSERVATORY_direction_W,
+	OBSERVATORY_direction_W,	//When doing the enum remember that all the north will be % 4 = 0, west % 4 = 1, east % 4 = 2, south % 4 = 3
 	OBSERVATORY_direction_E,
 	OBSERVATORY_direction_S,
 
