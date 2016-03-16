@@ -1,16 +1,16 @@
-Magic Academy Adventure
+#Magic Academy Adventure
 
 Welcome to Magic Academy Adventure, this game is based on the game called Zork, a written adventure.
 
-Installation
+#Installation
 
 Download the release zip, unzip it and execute the .exe file.
 
-Lore
+#Lore
 
 You are a student in a magic academy, you have a giant need of power, so your objective is to be the most powerfull one.
 
-Instructions, controls and how to play
+#Instructions, controls and how to play
 
 You can move using:
 
