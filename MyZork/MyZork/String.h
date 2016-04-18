@@ -25,6 +25,7 @@ public:
 	void clean();
 	unsigned int c_capacity() const;
 	void shrinktofit();
+	Vector <String> tokenize(char*, int&) const;
 
 public:
 

@@ -1,6 +1,7 @@
 #ifndef __World__
 #define __World__
 
+#include "MemoryLeaks.h"
 #include <string.h>
 #include "Entity.h"
 #include "Exit.h"
@@ -10,17 +11,25 @@
 #include "String.h"
 #include "Vector.h"
 
-class World{
+class World
+{
+
 public:
-	Vector <Room*> castlerooms;
+
+	Vector <Room*> rooms;
 	Vector <Exit*> exits;
 	Vector <Item*> items;
 	Player* player = nullptr;
+
 public:
+
 	World();
 	~World();
+
 public:
+
 	void CreateWorld();
+
 };
 
 extern World* worldextpointer;

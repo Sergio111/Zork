@@ -1,4 +1,168 @@
+#include <stdio.h>
+#include <string.h>
+#include "World.h"
 
+World::World()
+{
+	player = new Player;
+}
+
+World::~World()
+{
+	delete player;
+	for (int i = 0; i < 9; i++)
+	{
+		delete rooms[i];
+	}
+
+	for (int i = 0; i < 36; i++)
+	{
+		delete exits[i];
+	}
+
+	for (int i = 0; i < 8; i++)
+	{
+		delete items[i];
+	}
+}
+
+void World::CreateWorld()
+{
+
+	// Rooms
+
+	// OBSERVATORY
+	worldextpointer->rooms.pushback(new Room("The Observatory", "This room is full of extrange devices. There's a giant telescope. There's a table in the mid of the room, in the top of the table a misterious black scroll waits to be taken... The only entrance is in the east.", false));
+	// NORTHTEMPLE
+	worldextpointer->rooms.pushback(new Room("The North Temple", "This room is a cold one, it's dusty and all the walls are made of stone. There's a little key shinning in the floor. There are entrances in the west and the east.", false));
+	// HEADMASTERSROOM
+	worldextpointer->rooms.pushback(new Room("The Headmaster's Room", "This is The Headmaster's Room, it's a big room and the angry Headmaster is staring at you! The only entrance is on the west.", false));
+	// WESTTEMPLE
+	worldextpointer->rooms.pushback(new Room("The West Temple", "This room is full of weapons. It was an old armery, there's a iron sword there. There are entrances in the south and in the east.", false));
+	// FOUNTAINROOM
+	worldextpointer->rooms.pushback(new Room("The Fountain Room", "This room is an open aired room, full of fountains. There is a merchant in the middle of the room. There are entrances in the north, the west, the east and in the south.", false));
+	// EASTTEMPLE
+	worldextpointer->rooms.pushback(new Room("The East Temple", "This room is full of extrange devices. There's a giant cupboard closed, inside of it there's a big staff. There are entrances in the west, and in the south.", true));
+	// GARDEN
+	worldextpointer->rooms.pushback(new Room("The Garden", "This room is an open aired room. There's a few vegetation and some animals, the teacher is in the middle of the garden, maybe he has something to say... There are entrances in the north, and in the east.", false));
+	// SOUTHTEMPLE
+	worldextpointer->rooms.pushback(new Room("The South Temple", "This room is a well illuminated room prepared for magic battles. There is an angry sourcerer staring at you. There are entrances in the north, in the west and in the east.", false));
+	// LIBRARY
+	worldextpointer->rooms.pushback(new Room("The Library", "This room is a library, it is obviously full of books. The librarian is in the middle of the room, maybe she has some information... There are entrances in the north, and in the west.", false));
+
+	// Exits
+
+	// OBSERVATORY
+	//North
+	worldextpointer->exits.pushback(new Exit("Wall.", "There's a wall.", worldextpointer->rooms[OBSERVATORY], worldextpointer->rooms[OBSERVATORY], false, false));
+	//West
+	worldextpointer->exits.pushback(new Exit("Wall.", "There's a wall.", worldextpointer->rooms[OBSERVATORY], worldextpointer->rooms[OBSERVATORY], false, false));
+	//East
+	worldextpointer->exits.pushback(new Exit("Corridor.", "It's a long corridor with some sinister stairs.", worldextpointer->rooms[OBSERVATORY], worldextpointer->rooms[NORTHTEMPLE], false, false));
+	//South
+	worldextpointer->exits.pushback(new Exit("Wall.", "There's a wall.", worldextpointer->rooms[OBSERVATORY], worldextpointer->rooms[OBSERVATORY], false, false));
+
+	// NORTHTEMPLE
+	//North
+	worldextpointer->exits.pushback(new Exit("Wall.", "There's a wall.", worldextpointer->rooms[NORTHTEMPLE], worldextpointer->rooms[NORTHTEMPLE], false, false));
+	//West
+	worldextpointer->exits.pushback(new Exit("Corridor.", "It's a long corridor with some sinister stairs.", worldextpointer->rooms[NORTHTEMPLE], worldextpointer->rooms[OBSERVATORY], false, false));
+	//East
+	worldextpointer->exits.pushback(new Exit("Corridor.", "It's a long and dark corridor, a smell of death cames from it.", worldextpointer->rooms[NORTHTEMPLE], worldextpointer->rooms[HEADMASTERSROOM], true, true));
+	//South
+	worldextpointer->exits.pushback(new Exit("Corridor.", "It's a long corridor full of vegetation.", worldextpointer->rooms[NORTHTEMPLE], worldextpointer->rooms[FOUNTAINROOM], true, true));
+
+	// HEADMASTERSROOM
+	//North
+	worldextpointer->exits.pushback(new Exit("Wall.", "There's a wall.", worldextpointer->rooms[HEADMASTERSROOM], worldextpointer->rooms[HEADMASTERSROOM], false, false));
+	//West
+	worldextpointer->exits.pushback(new Exit("Wall.", "There's a wall.", worldextpointer->rooms[HEADMASTERSROOM], worldextpointer->rooms[NORTHTEMPLE], true, true));
+	//East
+	worldextpointer->exits.pushback(new Exit("Wall.", "There's a wall.", worldextpointer->rooms[HEADMASTERSROOM], worldextpointer->rooms[HEADMASTERSROOM], false, false));
+	//South
+	worldextpointer->exits.pushback(new Exit("Wall.", "There's a wall.", worldextpointer->rooms[HEADMASTERSROOM], worldextpointer->rooms[HEADMASTERSROOM], false, false));
+
+	// WESTTEMPLE
+	//North
+	worldextpointer->exits.pushback(new Exit("Wall.", "There's a wall.", worldextpointer->rooms[WESTTEMPLE], worldextpointer->rooms[WESTTEMPLE], false, false));
+	//West
+	worldextpointer->exits.pushback(new Exit("Wall.", "There's a wall.", worldextpointer->rooms[WESTTEMPLE], worldextpointer->rooms[WESTTEMPLE], false, false));
+	//East
+	worldextpointer->exits.pushback(new Exit("Corridor.", "It's a long dusty corridor.", worldextpointer->rooms[WESTTEMPLE], worldextpointer->rooms[FOUNTAINROOM], false, false));
+	//South
+	worldextpointer->exits.pushback(new Exit("Corridor.", "It's a dusty corridor with some torches in the wall.", worldextpointer->rooms[WESTTEMPLE], worldextpointer->rooms[GARDEN], false, false));
+
+	// FOUNTAINROOM
+	//North
+	worldextpointer->exits.pushback(new Exit("Corridor.", "It's a long corridor full of vegetation.", worldextpointer->rooms[FOUNTAINROOM], worldextpointer->rooms[NORTHTEMPLE], true, true));
+	//West
+	worldextpointer->exits.pushback(new Exit("Corridor.", "It's a long dusty corridor.", worldextpointer->rooms[FOUNTAINROOM], worldextpointer->rooms[WESTTEMPLE], false, false));
+	//East
+	worldextpointer->exits.pushback(new Exit("Corridor.", "It's a dusty corridor.", worldextpointer->rooms[FOUNTAINROOM], worldextpointer->rooms[EASTTEMPLE], false, false));
+	//South
+	worldextpointer->exits.pushback(new Exit("Corridor.", "It's a well illuminated corridor.", worldextpointer->rooms[FOUNTAINROOM], worldextpointer->rooms[SOUTHTEMPLE], false, false));
+
+	// EASTTEMPLE
+	//North
+	worldextpointer->exits.pushback(new Exit("Wall.", "There's a wall.", worldextpointer->rooms[EASTTEMPLE], worldextpointer->rooms[EASTTEMPLE], false, false));
+	//West
+	worldextpointer->exits.pushback(new Exit("Corridor.", "It's a dusty corridor.", worldextpointer->rooms[EASTTEMPLE], worldextpointer->rooms[FOUNTAINROOM], false, false));
+	//East
+	worldextpointer->exits.pushback(new Exit("Wall.", "There's a wall.", worldextpointer->rooms[EASTTEMPLE], worldextpointer->rooms[EASTTEMPLE], false, false));
+	//South
+	worldextpointer->exits.pushback(new Exit("Corridor.", "It's a dark corridor with a little illumination from some torches.", worldextpointer->rooms[EASTTEMPLE], worldextpointer->rooms[LIBRARY], true, true));
+
+	// GARDEN
+	//North
+	worldextpointer->exits.pushback(new Exit("Corridor.", "It's a dusty corridor with some torches in the wall.", worldextpointer->rooms[GARDEN], worldextpointer->rooms[WESTTEMPLE], false, false));
+	//West
+	worldextpointer->exits.pushback(new Exit("Wall.", "There's a wall.", worldextpointer->rooms[GARDEN], worldextpointer->rooms[GARDEN], false, false));
+	//East
+	worldextpointer->exits.pushback(new Exit("Corridor.", "It's a long well illuminated corridor.", worldextpointer->rooms[GARDEN], worldextpointer->rooms[SOUTHTEMPLE], false, false));
+	//South
+	worldextpointer->exits.pushback(new Exit("Wall.", "There's a wall.", worldextpointer->rooms[GARDEN], worldextpointer->rooms[GARDEN], false, false));
+
+	// SOUTHTEMPLE
+	//North
+	worldextpointer->exits.pushback(new Exit("Corridor.", "It's a well illuminated corridor.", worldextpointer->rooms[SOUTHTEMPLE], worldextpointer->rooms[FOUNTAINROOM], false, false));
+	//West
+	worldextpointer->exits.pushback(new Exit("Corridor.", "It's a long well illuminated corridor.", worldextpointer->rooms[SOUTHTEMPLE], worldextpointer->rooms[GARDEN], false, false));
+	//East
+	worldextpointer->exits.pushback(new Exit("Corridor.", "It's a long dark corridor with a little illumination from some torches.", worldextpointer->rooms[SOUTHTEMPLE], worldextpointer->rooms[LIBRARY], true, true));
+	//South
+	worldextpointer->exits.pushback(new Exit("Wall.", "There's a wall.", worldextpointer->rooms[SOUTHTEMPLE], worldextpointer->rooms[SOUTHTEMPLE], false, false));
+
+	// LIBRARY
+	//North
+	worldextpointer->exits.pushback(new Exit("Corridor.", "It's a dark corridor with a little illumination from some torches.", worldextpointer->rooms[LIBRARY], worldextpointer->rooms[EASTTEMPLE], true, true));
+	//West
+	worldextpointer->exits.pushback(new Exit("Corridor.", "It's a long dark corridor with a little illumination from some torches.", worldextpointer->rooms[LIBRARY], worldextpointer->rooms[SOUTHTEMPLE], true, true));
+	//East
+	worldextpointer->exits.pushback(new Exit("Wall.", "There's a wall.", worldextpointer->rooms[LIBRARY], worldextpointer->rooms[LIBRARY], false, false));
+	//South
+	worldextpointer->exits.pushback(new Exit("Wall.", "There's a wall.", worldextpointer->rooms[LIBRARY], worldextpointer->rooms[LIBRARY], false, false));
+
+	// Items
+
+	// SWORD
+	worldextpointer->items.pushback(new Item("Sword.", "A sharpened iron sword.", worldextpointer->rooms[WESTTEMPLE], 10, false, false, true, false, false));
+	// POWERSTAFF
+	worldextpointer->items.pushback(new Item("Power Staff.", "A powerfull staff created by some of the best mages.", worldextpointer->rooms[EASTTEMPLE], 20, false, false, true, true, false));
+	// SCROLLOFFIRE
+	worldextpointer->items.pushback(new Item("Scroll Of Fire.", "A migthy scroll with the power of the fire.", worldextpointer->rooms[LIBRARY], 0, false, false, false, false, false));
+	// SCROLLOFWATER
+	worldextpointer->items.pushback(new Item("Scroll Of Water.", "A migthy scroll with the power of the water.", worldextpointer->rooms[GARDEN], 0, false, false, false, false, false));
+	// SCROLLOFLIGHT
+	worldextpointer->items.pushback(new Item("Scroll Of Light.", "A migthy scroll with the power of the light.", worldextpointer->rooms[FOUNTAINROOM], 0, false, false, false, true, false));
+	// SCROLLOFDEATH
+	worldextpointer->items.pushback(new Item("Scroll Of Death.", "A migthy scroll with the power of the death.", worldextpointer->rooms[OBSERVATORY], 0, false, false, false, false, false));
+	// KEY
+	worldextpointer->items.pushback(new Item("Key.", "KA key that opens a cupboard.", worldextpointer->rooms[NORTHTEMPLE], 0, false, false, false, false, false));
+	// BACKPACK
+	worldextpointer->items.pushback(new Item("Backpack.", "Backpack to keep items inside.", worldextpointer->rooms[FOUNTAINROOM], 0, false, false, false, false, false));
+	
+	worldextpointer->player->player_position = worldextpointer->rooms[FOUNTAINROOM];
+}
 
 /*#include <stdio.h>
 #include <string.h>

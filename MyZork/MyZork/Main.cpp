@@ -10,11 +10,20 @@ World* worldextpointer = new World();
 
 int main()
 {
-	char option[20];
+	String commandmanagement;
+	char command[50];
+	int command1 = 0, command2 = 0, command3 = 0, command4 = 0;
+	int command_words = 0, i = 0, j = 0;
+	int actual_position = 4;
+	Player commandinput;
+
+	worldextpointer->CreateWorld();
+
+	/*char option[20];
 	int position = 4; //Set initial position to rooms[4](FOUNTAINROOM)
 
 	World world;
-	world.CreateWorld();
+	world.CreateWorld();*/
 
 	printf("\nThis game is called 'The magic academy adventure'\nIt's an interactive textual game in which you have to explore \nfind items and defeat some enemies.\n");
 	printf("In this game you are an apprentice in a wizard's accademy, your objective is to gain power and be the most powerfull one\n");
@@ -23,9 +32,63 @@ int main()
 	printf("To specify the direction you want: north/weast/east/south/n/w/e/s\n");
 	printf("Use look to know where you are, use look + direction to look a corridor\n");
 	printf("\nIt is the moment to start your trial!\n");
-	printf("\nYou are in The Fountain Room\n");
-	printf("This room is an open aired room, full of fountains. There is a merchant in the middle of the room. There are entrances in the north, the west, the east and in the south.\n");
+	
+	do
+	{
+	printf("You are in %s.\n%s\n", worldextpointer->player->player_position->name.c_str(), worldextpointer->player->player_position->description.c_str());
+	commandinput.dropitemslook();
+	printf("What do you want to do?\n");
+	gets_s(command);
 
+	if ((command[0] != NULL) && (command[0] != ' '))
+	{
+		Vector <String> commands = commandmanagement.tokenize(command, command_words);
+
+		command1 = command2 = command3 = command4 = 0;
+
+		switch (command_words)
+		{
+		case 1:
+
+			command1 = commandinput.check_firstcommand(commands);
+			commandinput.command1word(command1, actual_position);
+			break;
+
+		case 2:
+
+			command1 = commandinput.check_firstcommand(commands);
+			command2 = commandinput.check_secondcommand(commands);
+			commandinput.command2words(command1, command2, actual_position);
+			break;
+
+		case 4:
+
+			command1 = commandinput.check_firstcommand(commands);
+			command2 = commandinput.check_secondcommand(commands);
+			command3 = commandinput.check_thirdcommand(commands);
+			command4 = commandinput.check_fourthcommand(commands);
+			commandinput.command4words(command1, command2, command3, command4, actual_position);
+			break;
+
+		default:
+			printf("That's not a valid command.\n");
+			break;
+		}
+	}
+
+	else
+	{
+		printf("You must put a valid command.\n");
+	}
+
+} while (command1 != QUIT);
+
+system("pause");
+delete worldextpointer;
+return 0;
+
+}
+	/*
 	do
 	{
 
@@ -68,5 +131,4 @@ int main()
 
 
 	getchar();
-	return 0;
-}
+	return 0;*/

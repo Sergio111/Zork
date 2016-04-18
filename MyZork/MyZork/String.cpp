@@ -135,3 +135,71 @@ void String::shrinktofit()
 	buffer = new char[capacity];
 	strcpy_s(buffer, capacity, temp);
 }
+
+Vector <String> String::tokenize(char* command, int& command_words) const
+{
+	String trash;
+	Vector <String> commandvector;
+	char *lefttrimmed = command;
+	char *lefttrimbase = command;
+	unsigned int leng = length() + 1, laps = 0;
+	char *commandtosplit;
+	char *context;//Strtok_s variable
+
+	command_words = 0;
+
+	//trimleft
+	while (*lefttrimbase++ == ' ' && *lefttrimbase);
+	lefttrimbase--;
+	while (*lefttrimmed++ = *lefttrimbase++);
+
+	//Tokenize
+	commandtosplit = strtok_s(command, " ,.-", &context);
+	commandvector.pushback(commandtosplit);
+	command_words++;
+	while ((*context != NULL) && (laps < 3)){// need 4 commands
+		if (laps == 0){
+			if (strstr(context, "gas mask") != nullptr)
+			{
+				commandtosplit = "gas mask";
+				trash = strtok_s(NULL, " ", &context);
+				trash = strtok_s(NULL, " ", &context);
+				commandvector.pushback(commandtosplit);
+			}
+
+			else if (strstr(context, "venom gas grenade") != nullptr)
+			{
+				commandtosplit = "venom gas grenade";
+				trash = strtok_s(NULL, " ", &context);
+				trash = strtok_s(NULL, " ", &context);
+				trash = strtok_s(NULL, " ", &context);
+				commandvector.pushback(commandtosplit);
+			}
+
+			else if (strstr(context, "rusty katana") != nullptr)
+			{
+				commandtosplit = "rusty katana";
+				trash = strtok_s(NULL, " ", &context);
+				trash = strtok_s(NULL, " ", &context);
+				commandvector.pushback(commandtosplit);
+			}
+
+			else
+			{
+				commandtosplit = strtok_s(NULL, " ", &context);
+				commandvector.pushback(commandtosplit);
+			}
+		}
+
+		else
+		{
+			commandtosplit = strtok_s(NULL, " ", &context);
+			commandvector.pushback(commandtosplit);
+		}
+
+		laps++;
+		command_words++;
+	}
+
+	return commandvector;
+}
