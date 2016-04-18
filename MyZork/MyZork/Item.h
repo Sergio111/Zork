@@ -5,7 +5,7 @@
 #include "Room.h"
 #include "Exit.h"
 
-class Item : public Entity
+class Item:public Entity
 {
 
 public:
