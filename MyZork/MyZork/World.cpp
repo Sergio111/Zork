@@ -1,4 +1,6 @@
-#include <stdio.h>
+
+
+/*#include <stdio.h>
 #include <string.h>
 #include "World.h"
 
@@ -701,4 +703,4 @@ void World::Help() const
 	printf("To specify the direction you want: north/weast/east/south/n/w/e/s\n");
 	printf("Use look to know where you are, use look + direction to look a corridor\n");
 
-}
+}*/

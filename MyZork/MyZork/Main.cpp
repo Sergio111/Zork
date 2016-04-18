@@ -6,6 +6,8 @@
 #include "Room.h"
 #include "Exit.h"
 
+World* worldextpointer = new World();
+
 int main()
 {
 	char option[20];

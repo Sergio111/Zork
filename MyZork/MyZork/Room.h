@@ -17,8 +17,6 @@ public:
 	
 };
 
-enum Rooms{ OBSERVATORY, NORTHTEMPLE, HEADMASTERSROOM, WESTTEMPLE, FOUNTAINROOM, EASTTEMPLE, GARDEN, SOUTHTEMPLE, LIBRARY }; //We enum the rooms, we will have to have in count the valors of the enum
-
 #endif
 
 /*
