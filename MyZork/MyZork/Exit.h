@@ -1,4 +1,33 @@
-#ifndef __Exit__
+#ifndef __Exits__
+#define __Exits__
+
+#include "Entity.h"
+#include "Room.h"
+
+class Exit : public Entity
+{
+
+public:
+
+	Room *origin; //pointer to origin room
+	Room *destination; //pointer to destination room
+
+public:
+
+	Exit();
+	Exit(const char*, const char*, Room*, Room*, bool, bool);
+	~Exit();
+
+public:
+
+	bool door = false; //door or not door
+	bool close = false; //door state
+
+};
+
+#endif
+
+/*#ifndef __Exit__
 #define __Exit__
 
 #include "room.h"
@@ -86,4 +115,4 @@ enum Directions{
 
 };
 
-#endif
+#endif*/
